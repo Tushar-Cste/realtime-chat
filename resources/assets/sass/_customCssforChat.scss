@@ -1,0 +1,121 @@
+.divbox{
+     width: 100%;
+       font-style: normal;
+       
+    overflow: hidden;
+    background:rgb(255,255,255);  
+    padding:20px;
+    font-weight: lighter;
+}
+
+.mesuccess{
+    background:#ffffff;
+    height: 70px;
+    font-style: oblique;
+    color:rgb(22, 27, 22);
+    text-align: left;
+    
+    margin: 15px 0px 0px -6px
+
+}
+.hesuccess{
+    background:#ffffff;
+     height: 70px;
+    font-style: oblique;
+    color:rgb(31, 17, 17);
+    text-align:left;
+    border-top:#fcfafa75 1px solid;
+    margin: 10px 0px 0px -6px;
+}
+.wrapping{
+    border:10px solid black ;
+}
+.spamDisplay{
+    opacity: 0.2;
+   
+}
+.sender{
+    margin:9px -53px 16px 0px;
+    font-weight: 900 !important;
+       font-style: normal;
+}
+.time{
+     font-size:12px;
+     margin:25px 74px;
+     color:rgb(153, 153, 153);
+}
+.messagebody{
+        margin: 15px 10px -5px 0;
+        max-width: 540px;
+        font-size: 14px;
+        line-height: 145%;
+        font-weight: 300 !important;
+        word-break: break-word;
+        white-space: pre-line;
+        overflow-wrap: break-word;
+        font: caption;
+}
+.spanclass{
+    display:inline;
+    float:right;
+    font-size: 12px;
+    color:#b2b2b2;
+    text-indent:8px;
+    margin-right: 258px;
+}
+.well-sm {
+    padding: 3px;
+    border-radius: 3px;
+    min-height: 14px;
+    background-color: #f5f5f5;
+    border: 1px solid #e3e3e3;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+}
+.divmgs{
+    margin:-11px 2px 0px 17px;
+      font-style: normal;
+    font-size: 12px;
+}
+.alink{
+    font-weight: 600 !important;
+    color:black;
+        font-style: normal;
+}
+.mydrp{
+    font-style: oblique 40deg;
+     font-size: 12px !important;
+     font-weight: 400 !important;
+}
+.chtbxusername{
+    font-weight: 700 !important;
+     font-size: 25px !important;
+      font-style: normal;
+   
+}
+.chatliststyle{
+    list-style: none;
+    overflow: hidden !important;
+    border-bottom: #e7e4e48a solid 1px;
+    padding:10px;
+    font-style: normal;
+        margin: 0px 0px 5px -39px;
+}
+.chatliststyle:hover{
+     background-color:#f5f5f5;
+}
+#tbod:hover{
+     background-color:#f5f5f5;
+}
+.chatboxtopbar{
+    border-bottom: #d4d1d1 solid 1px;
+    margin: 3px 12px 4px -17px;
+}
+.jumbotron{
+    padding:50px;
+    margin-left: 0;
+    color:green;
+    font-weight: 300;
+    border-radius: 25px;
+    margin-top: 10%;
+    background: #f3a9a92a;
+}
