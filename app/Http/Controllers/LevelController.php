@@ -51,7 +51,8 @@ class LevelController extends Controller
 
             $output = '';
             foreach ($allevels as $allevel) {
-                $output .= '<h6>' . $allevel->value . '<a href="#">' . '<i class="fas fa-times">' . '</i>' . '</a>' . '</h6>';
+                $leveldelsrc = route('leveldel', $allevel->id);
+                $output .= '<h6 class="well-sm level_font" style="display:inline;">' . $allevel->value . '<a class="alink"  href="'. $leveldelsrc .'">' . '<i id="crossbutton" class="fas fa-times"></i>' . '</a>' . '</h6>';
             }
             $output='Level: '.$output;
             return Response($output);  
@@ -83,7 +84,7 @@ class LevelController extends Controller
         $output = '';
         foreach ($allevels as $allevel) {
             $leveldelsrc=route('leveldel',$allevel->id);
-            $output .= '<h6>' . $allevel->value . '<a href="'.$leveldelsrc.'">' . '<i class="fas fa-times">' . '</i>' . '</a>' . '</h6>';
+            $output .= '<h6 class="well-sm level_font" style="display:inline;">' . $allevel->value . '<a class="alink" href="'.$leveldelsrc.'">' . '<i id="crossbutton" class="fas fa-times"></i>' . '</a>' . '</h6>';
         }
         $output='Level: '.$output;
         return Response($output);            

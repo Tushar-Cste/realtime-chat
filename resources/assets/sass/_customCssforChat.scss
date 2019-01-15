@@ -53,7 +53,7 @@
      color:#999999;
 }
 .messagebody{
-        margin: 10px 10px -5px 0;
+        margin: 10px 10px -5px 70px;
         max-width: 540px;
         font-size: .80rem !important;
         font-style:normal;
@@ -80,11 +80,7 @@
     border: 1px solid #e3e3e3;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
 }
-.divmgs{
-    margin:-11px 2px 0px 17px;
-      font-style: normal;
-    font-size: 12px;
-}
+
 .alink{
     font-weight: 600 !important;
     color:black;
@@ -112,11 +108,28 @@
     font-style: normal;
     margin: 0px 0px 0px -39px;
 }
+.chatlistname{
+    padding:0;
+    margin:0px 0px 0px 0px;
+
+}
+.chatlistmgs {
+    margin: -18px 30px 0px 19px;
+    font-style: normal;
+    font-size: 12px;
+}
 .chatliststyle:hover{
      background-color:#f5f5f5;
 }
 #tbod:hover{
      background-color:#f5f5f5;
+}
+#crossbutton{
+    opacity: .05;
+}
+#crossbutton:hover{
+    opacity: .8;
+    color:red;
 }
 .chatboxtopbar{
     border-bottom: #d4d1d1 solid 1px;
@@ -141,6 +154,12 @@
     font-size: .80rem;
     color:rgb(180, 180, 180);
         font-style: normal;
+}
+.level_font{
+    font-size: .85rem !important;
+    padding:3px;
+    font-style: normal;
+    color:rgb(56, 55, 55);
 }
 .chatnavicon{
 padding-top: 3px;

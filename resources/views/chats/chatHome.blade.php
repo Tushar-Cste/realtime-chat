@@ -209,26 +209,31 @@
                      
                     @if( $messageunread)
                         <li class="chatliststyle"  style="overflow: auto;background:lightgray;">
-                            <img style="border-radius: 50%;display:inline" src="{{asset('/uploads/avatars/'.$receiver->avatar)}}" height="50px" width="50px"  alt="{{asset('uploads/avatars/defaultpic.jpg')}}"  >
-                            <h3  style="display:inline" @keyup.enter='dataset{{($romid)}}'> 
-                            <a class="alink" href="{{url('privateChat/'.$chatRoomId)}}">   {{$receiver->name}}</a>
-                            </h3> 
-                            <i class="far fa-star time"></i>
-                            <i class="time" style=" color:rgb(153, 153, 153);" >{{$timestring}}</i>
-                            <div class="divmgs">
-                            <h5 class="offset-1 well-sm message_font" style="display:inline;" ><b>{{ $messageunread->message}}</b></h5>
-                            <span class="badge badge-success">{{$messagecont}}</span>
-                            </div>
+                            <img class="receiver-profile-image float-left" style="padding:3px;display:inline" src="{{asset('/uploads/avatars/'.$receiver->avatar)}}" height="50px" width="50px"  alt="{{asset('uploads/avatars/defaultpic.jpg')}}"  >
+                            <a class="alink" href="{{url('privateChat/'.$chatRoomId)}}">
+                                <div class="chatlistname" style="float:left">
+                                     <h3  style="display:inline" >  {{$receiver->name}}  </h3> 
+                                      <i class="far fa-star time">{{$timestring}}</i>
+                                </div><br>
+                                <h5 class="col-md-10 well-sm message_font" style="display:inline;" ><b>{{ $messageunread->message}}</b></h5>
+                                 <span class="badge badge-success">{{$messagecont}}</span>
+
+                             </a>
+                           
+                        
                         </li>
                        @elseif($message)
                         <li class="chatliststyle" style="overflow: auto;">
-                                <img style="border-radius: 50%;display:inline" src="{{asset('/uploads/avatars/'.$receiver->avatar)}}" height="50px" width="50px" alt="{{asset('uploads/avatars/defaultpic.jpg')}}"  >
-                                <h3  style="display:inline" @keyup.enter='dataset{{($romid)}}'> 
-                                <a class="alink" href="{{url('privateChat/'.$chatRoomId)}}">   {{$receiver->name}}</a>
-                                </h3> 
-                                <i class="far fa-star time"> {{$timestring}}</i>
-                            
-                               <div class="divmgs"> <h5 class="offset-2 message_font" style= "display:inline;" >{{ $message->message}}</h5></div>
+                                <img class="receiver-profile-image float-left" style="padding:3px;display:inline" src="{{asset('/uploads/avatars/'.$receiver->avatar)}}" height="50px" width="50px" alt="{{asset('uploads/avatars/defaultpic.jpg')}}"  >
+                                
+                                <a  href="{{url('privateChat/'.$chatRoomId)}}">
+                                    <div class="chatlistname" style="float:left">
+                                        <h3 class="alink" style="display:inline" >   {{$receiver->name}}</h3> 
+                                    
+                                        <i class="far fa-star time"> {{$timestring}}</i>
+                                    </div><br>
+                                     <h5 class="message_font col-md-10 " style= "display:inline" >{{ $message->message}}</h5>
+                               </a>
                         </li>
                                             
                     @endif
