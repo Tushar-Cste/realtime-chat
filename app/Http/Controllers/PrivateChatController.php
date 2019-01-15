@@ -22,7 +22,7 @@ class PrivateChatController extends Controller
         $arr = explode(',', $id);
         $senderid = Auth::user()->id;
         $userob=User::find($senderid);
-        $receivers = $this->receivers($senderid,$roomId);
+        $receivers = $this->receivers($senderid);
     
 
         for ($i = 0; $i < sizeof($arr); $i++) {
@@ -46,12 +46,14 @@ class PrivateChatController extends Controller
         dd($message);*/
         foreach ($chatroom as $chat) {
             $arr = explode(',', $chat->chatRoomId);
+           // print_r($arr);
+            if ($arr[0] == $id) {
 
-            for ($i = 0; $i < sizeof($arr); $i++) {
-                if ($arr[$i] != $id) {
-                    array_push($receiver, User::find($arr[$i]));
-                }
-
+                array_push($receiver, User::find($arr[1]));
+            } elseif ($arr[1] == $id) {
+                array_push($receiver, User::find($arr[0]));
+            } else {
+                continue;
             }
         }
         return $receiver;

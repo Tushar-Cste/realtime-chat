@@ -25,11 +25,11 @@ class ChatDashboardController extends Controller
         $user=User::find($id);
         $user->onlineStatus=1;
         $user->save();
-        $ri=$this->receiversid($id);
+       // $ri=$this->receiversid($id);
       //  broadcast(new OnlineEvent($user));
        
         return view('chats.chatHome')->with('receivers', $receiver)
-                                      ->with('ri', $ri)
+                                    //   ->with('ri', $ri)
                                      ->with('requestmaker', $id)
                                      ->with('roomId',0);
                                    
@@ -39,20 +39,20 @@ class ChatDashboardController extends Controller
         $receiver = array();
        
         $chatroom = Chatroom::where('chatRoomId', 'Like', '%' . $id . '%')->orderBy('updated_at')->get();
-       
+       // print_r($chatroom);
         foreach ($chatroom as $chat) {
             $arr = explode(',', $chat->chatRoomId);
-            if($arr[0] == $id || $arr[1] == $id){
-                for ($i = 0; $i < sizeof($arr); $i++) {
-                    if ($arr[$i] != $id) {
-                        array_push($receiver, User::find($arr[$i]));
-
-                    }
-
-                }
+           // print_r($arr);
+            if($arr[0] == $id){ 
+               
+                array_push($receiver, User::find($arr[1]));
             }
-           
-        }
+            elseif($arr[1] == $id){
+                array_push($receiver, User::find($arr[0]));
+            }
+            else{continue;}
+        
+        } 
         return $receiver;
     }
     public function receiversid($id)
@@ -64,17 +64,15 @@ class ChatDashboardController extends Controller
         dd($message);*/
         foreach ($chatroom as $chat) {
             $arr = explode(',', $chat->chatRoomId);
-            if($arr[0]== $id || $arr[1]== $id){
-                for ($i = 0; $i < sizeof($arr); $i++) {
-                    if ($arr[$i] != $id) {
-                        $u = User::find($arr[$i]);
-                        $u = $u->id;
-                        array_push($receiverid, $u);
+            if ($arr[0] == $id) {
 
-                    }
-
-                }
+                array_push($receiverid, User::find($arr[1]));
+            } elseif ($arr[1] == $id) {
+                array_push($receiverid, User::find($arr[0]));
+            } else {
+                continue;
             }
+           
             
         }
         return $receiverid;

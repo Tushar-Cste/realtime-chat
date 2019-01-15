@@ -131,14 +131,9 @@
                     $chatRoomId = $receiver->id.','.$userid;
                     }
                     $romid=App\Chatroom::where('chatRoomId',$chatRoomId)->first();
-                 //   echo $receiver; continue;
+               // echo $receiver; continue;
                     $romid=$romid->id;
-                @endphp
-              
-                
-                
-                   
-                    @php
+               //  echo $romid; continue;
                     
                        $messagecont=App\Message::where('RoomId',$romid)
                                                 ->where('readWriteStatus','!=',1)
