@@ -1,31 +1,31 @@
 .divbox{
      width: 100%;
-       font-style: normal;
+     font-style: normal;
        
     overflow: hidden;
     background:rgb(255,255,255);  
-    padding:20px;
+    padding:0;
     font-weight: lighter;
 }
 
 .mesuccess{
     background:#ffffff;
-    height: 70px;
+   
     font-style: oblique;
     color:rgb(22, 27, 22);
     text-align: left;
     
-    margin: 15px 0px 0px -6px
+    margin: 0px 0px 0px -6px
 
 }
 .hesuccess{
     background:#ffffff;
-     height: 70px;
+   
     font-style: oblique;
     color:rgb(31, 17, 17);
     text-align:left;
     border-top:#fcfafa75 1px solid;
-    margin: 10px 0px 0px -6px;
+    margin: 0px 0px 0px -6px;
 }
 .wrapping{
     border:10px solid black ;
@@ -35,25 +35,34 @@
    
 }
 .sender{
-    margin:9px -53px 16px 0px;
-    font-weight: 900 !important;
-       font-style: normal;
+    margin: 10px -44px 0px -6px;
+    font-weight: 700 !important;
+    font-style: normal;
+    font-size: .95rem;
 }
 .time{
      font-size:12px;
-     margin:25px 74px;
-     color:rgb(153, 153, 153);
+     margin:0px 0px;
+     font-style:normal;
+     color:#999999;
+}
+#time{
+     font-size:12px;
+     margin:12px 0px 0px 120px;
+     font-style:normal;
+     color:#999999;
 }
 .messagebody{
-        margin: 15px 10px -5px 0;
+        margin: 10px 10px -5px 0;
         max-width: 540px;
-        font-size: 14px;
+        font-size: .80rem !important;
+        font-style:normal;
         line-height: 145%;
         font-weight: 300 !important;
         word-break: break-word;
         white-space: pre-line;
         overflow-wrap: break-word;
-        font: caption;
+       
 }
 .spanclass{
     display:inline;
@@ -87,9 +96,11 @@
      font-weight: 400 !important;
 }
 .chtbxusername{
-    font-weight: 700 !important;
-     font-size: 25px !important;
-      font-style: normal;
+       font-weight: 700 !important;
+       font-size: 1.2rem !important;
+       font-style: normal;
+       margin: 0;
+       padding: 0;
    
 }
 .chatliststyle{
@@ -118,4 +129,21 @@
     border-radius: 25px;
     margin-top: 10%;
     background: #f3a9a92a;
+}
+.receiver-profile-image{
+    vertical-align: middle;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+.message_font{
+    font-size: .80rem;
+    color:rgb(180, 180, 180);
+        font-style: normal;
+}
+.chatnavicon{
+padding-top: 3px;
+font-size: .80rem;
+margin-left: 16px;
+float: right;
 }

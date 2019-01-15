@@ -26,32 +26,8 @@ class LevelController extends Controller
         }else{
             $receiver=$chatroomusers[0];
         }
-       // $levels=$request->levels;
-       // $cuslevel=$request->customlevels;
-        
-            // $newlevel = new Level;
-            // $newlevel->userleveler = $sender;
-            // $newlevel->userbeenleveled = $receiver;
-            // $newlevel->value = $request->levels;
-            // $newlevel->save();
-        
-        // $previousfollow=Level::where('userleveler',$sender)
-        //                      ->where('value', 'Follow')
-        //                      ->where('userbeenleveled',$receiver)
-        //                      ->count();
-        //  $previousnudge=Level::where('userleveler',$sender)
-        //                       ->where('value', 'Nudge')
-        //                       ->where('userbeenleveled',$receiver)
-        //                      ->count();
-        // if($request->levels == 'Follow' && $previousfollow==0){
-        //     $newlevel = new Level;
-        //     $newlevel->userleveler = $sender;
-        //     $newlevel->userbeenleveled = $receiver;
-        //     $newlevel->value = $request->levels;
-        //     $newlevel->save();  
-        //     return ['level'=>'Follow']; 
-
-        //  }
+       
+       
         // if($request->levels == 'Nudge' && $previousnudge == 0){
         //     $newlevel = new Level;
         //     $newlevel->userleveler = $sender;
@@ -77,6 +53,7 @@ class LevelController extends Controller
             foreach ($allevels as $allevel) {
                 $output .= '<h6>' . $allevel->value . '<a href="#">' . '<i class="fas fa-times">' . '</i>' . '</a>' . '</h6>';
             }
+            $output='Level: '.$output;
             return Response($output);  
        }else{
            return 'reload';
@@ -108,6 +85,7 @@ class LevelController extends Controller
             $leveldelsrc=route('leveldel',$allevel->id);
             $output .= '<h6>' . $allevel->value . '<a href="'.$leveldelsrc.'">' . '<i class="fas fa-times">' . '</i>' . '</a>' . '</h6>';
         }
+        $output='Level: '.$output;
         return Response($output);            
    }
    public function custom(Request $request){

@@ -23,17 +23,14 @@ var requestmaker ="{{ $requestmaker }}";
           
            
         <div class="chatboxtopbar"> 
-            {{-- <div class="col-md-2 float-left" style="margin-right:0;overflow:hidden"> --}}
+           
                 <tr style="overflow:hidden">  <img class="receiver-profile-image float-left" style="padding:3px;" src="{{asset('/uploads/avatars/'.$receiver_user->avatar)}}" height="60px" width="60px" alt="default.png"  > </tr> 
-            {{-- </div> --}}
+           
             <div class="">
-               <table style="width:70%;" >
+               <table style="" class="col-md-7">
                     <tr scope="row" >
                         <td colspan="12"><h1 class="chtbxusername">{{$receiver_user->name}}</h1></td>
-                        <td style=" empty-cells: show">
-                     
-                        </td>
-                      
+                        
                         <td class="chatnavicon" >
                             <i  class="far fa-star chatnavicon"></i>
                             <i  class="far fa-envelope-open chatnavicon"></i>
@@ -72,7 +69,7 @@ var requestmaker ="{{ $requestmaker }}";
                     </tr>
                     <tr  >
                         <td class="message_font" >
-                            <div class="leveldiv" id="levelid" >Level:
+                            <div class="leveldiv" id="levelid" >
                              
                             </div>   
                        </td>
@@ -88,7 +85,7 @@ var requestmaker ="{{ $requestmaker }}";
             <ul style="overflow-y: scroll;height:400px" class="list-group " v-chat-scroll >
                 <style>
                     [v-cloak]{display: none;}
-                    </style>
+                </style>
 			  
 			  <message
 			  	v-for="value,index in chat.messages"
@@ -118,8 +115,7 @@ var requestmaker ="{{ $requestmaker }}";
    
 
     function myTimer() {
-    // var d = new Date();
-    // document.getElementById("demo").innerHTML = d.toLocaleTimeString();
+   
 
      $.ajax({
             type: 'get',

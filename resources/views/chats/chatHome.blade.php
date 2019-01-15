@@ -29,6 +29,7 @@
    
 </head>
 <body >
+   
  <script>
    var roomid="{{  $roomId }}";
  </script>   
