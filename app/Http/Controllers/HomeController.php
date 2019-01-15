@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Buyer;
 use App\Seller;
 use App\Article;
+use App\User;
 class HomeController extends Controller
 {
     /**
@@ -26,6 +27,9 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $id = $request->user()->id;
+        $user=User::find($id);
+        $user->onlineStatus=1;
+        $user->save();
         $buyers = Buyer::orderBy('id', 'desc')->paginate(10);
         $sellers = Seller::orderBy('id', 'desc')->paginate(10);
         $articles = Article::orderBy('id', 'desc')->paginate(10);

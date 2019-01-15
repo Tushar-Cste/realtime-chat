@@ -25051,7 +25051,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
         res: '',
         customlevels: [],
         selected: ' ',
-
+        k: '',
         chat: {
             messages: [],
             user: [],
@@ -25074,14 +25074,16 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
         send: function send(id) {
             var _this = this;
 
+            this.k = this.dateformate();
+            console.log(this.k);
             if (this.message.length != 0) {
                 this.chat.messages.push(this.message);
                 this.chat.spamedmessageid.push('false');
                 this.chat.mgssender.push('true');
                 this.chat.user.push('Me');
                 this.chat.color.push("mesuccess");
-                var k = this.dateformate();
-                this.chat.time.push(k);
+
+                this.chat.time.push(this.k);
                 this.chat.spam.push('none');
                 this.chat.report.push('none');
                 this.time = this.getTime();
@@ -25118,7 +25120,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
                 levels: this.selected
             }).then(function (response) {
                 //this.selected='';
-                console.log(response.data);
+                // console.log(response.data);
                 _this2.levelss.push(response.data.level);
             }).catch(function (error) {
                 console.log(error);
@@ -25224,7 +25226,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
         this.getOldMessages();
         //  this.getOldLevel();
         var m = this.getTime();
-
+        this.dateformate();
         this.setLogedInUserTime();
 
         // console.log(requestmaker);

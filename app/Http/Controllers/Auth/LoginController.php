@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\User;
+use Session;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -18,7 +22,9 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    use AuthenticatesUsers {
+        logout as performLogout;
+    }
 
     /**
      * Where to redirect users after login.
@@ -35,5 +41,17 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+    public function logout(Request $request)
+    {
+        $id=auth()->user()->id;
+        $user = User::find($id);
+        $user->onlineStatus = 0;
+        $user->save();
+        $this->guard()->logout();
+        $request->session()->flush();
+        $request->session()->regenerate();
+        $this->performLogout($request);
+        return redirect()->route('home');
     }
 }

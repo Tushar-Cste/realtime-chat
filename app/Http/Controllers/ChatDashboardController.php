@@ -21,15 +21,11 @@ class ChatDashboardController extends Controller
     {
         $id = Auth::user()->id;
         $receiver = $this->receivers($id);
-       // $readWrite= $this->readwriteStatus($id);
+     
         $user=User::find($id);
-        $user->onlineStatus=1;
-        $user->save();
-       // $ri=$this->receiversid($id);
-      //  broadcast(new OnlineEvent($user));
+      
        
         return view('chats.chatHome')->with('receivers', $receiver)
-                                    //   ->with('ri', $ri)
                                      ->with('requestmaker', $id)
                                      ->with('roomId',0);
                                    
@@ -55,27 +51,6 @@ class ChatDashboardController extends Controller
         } 
         return $receiver;
     }
-    public function receiversid($id)
-    {
-        $receiverid = array();
-       
-        $chatroom = Chatroom::where('chatRoomId', 'Like', '%' . $id . '%')->orderBy('updated_at')->get();
-        /*$message = Message::where('chatRoomId','Like','%'.$id.'%')->first();
-        dd($message);*/
-        foreach ($chatroom as $chat) {
-            $arr = explode(',', $chat->chatRoomId);
-            if ($arr[0] == $id) {
-
-                array_push($receiverid, User::find($arr[1]));
-            } elseif ($arr[1] == $id) {
-                array_push($receiverid, User::find($arr[0]));
-            } else {
-                continue;
-            }
-           
-            
-        }
-        return $receiverid;
-    }
+   
  
 }

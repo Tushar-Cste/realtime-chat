@@ -45,7 +45,7 @@
     <div style="float:letf" class="col-md-4 float-left" id="reg">
 
         <div class="topleftchatdiv" >
-            <a class="btn dropdown-toggle" href="#" role="button" id="drop" data-toggle="dropdown" data-toggle="dropdown" aria-expanded="true">
+            <a class="btn dropdown-toggle alink" href="#" role="button" id="drop" data-toggle="dropdown" data-toggle="dropdown" aria-expanded="true">
                All conversation
            </a> 
     
@@ -251,12 +251,12 @@
   
      @php
        $fullurl=url()->full();
-       $dashurl= url('/').'/'.'dashboard';
+       $dashurl= url('/').'/'.'chatdashboard';
        //echo $fullurl.'<br>'.$dashurl;
        
       @endphp 
       @if($fullurl == $dashurl)
-      <div class="jumbotron col-md-8 text-justify float-right"><h2>Hi..  You don't start chat yet... Let's find someone and starting talking <i class="far fa-smile"></i> </h2> </div>
+      <div class="jumbotron col-md-8 text-justify float-right message_font"><h2>Hi..  You don't start chat yet... Let's find someone and starting talking <i class="far fa-smile"></i> </h2> </div>
      
       @endif
      
@@ -313,7 +313,7 @@
         </script>
         <script type="text/javascript">
         function closeall(){
-            console.log('akae tho adkfjadkfjas;');
+           
              location.reload();
         };
         $(document).ready(function(){

@@ -42,12 +42,18 @@ foreach ($site_info as $info_element){
                                 </div>
                             </li>
                         @else
-                            <!-- <li class="nav-item mt-4">
+                            <li class="nav-item mt-4">
                                 <a class="nav-link" href="{{ route('login') }}">
                                    <i class="fas fa-signal fa-1x"></i>
                                    Sort
                                 </a>
-                            </li> -->
+                            </li> 
+                             <li class="nav-item mt-4">
+                                <a class="nav-link" href="{{ route('chatdashboard') }}">
+                                    <i class="fas fa-comments fa-1x"></i>
+                                    Chat
+                                </a>
+                            </li>
                             <li class="nav-item mt-4">
                                 <a class="nav-link" href="{{ route('login') }}"
                                 data-toggle="modal" data-target="#filter-modal">
@@ -56,7 +62,7 @@ foreach ($site_info as $info_element){
                                 </a>
                             </li>
                             <li class="nav-item mt-4">
-                                <a class="nav-link" href="{{ route('chatdashboard') }}">
+                                <a class="nav-link" href="">
                                     <i class="fas fa-comments fa-1x"></i>
                                     Chat
                                 </a>
