@@ -312,6 +312,10 @@
         
         </script>
         <script type="text/javascript">
+        function closeall(){
+            console.log('akae tho adkfjadkfjas;');
+             location.reload();
+        };
         $(document).ready(function(){
             $("#sss").click(function(){
                 $.ajax({

@@ -60,7 +60,7 @@ class searchController extends Controller
 
 
                 }
-
+                $output = '<div style="overflow-y:scroll">' . '<i id="crossbutton" onClick="closeall()" class="fas fa-times" >' . '</i>' . $output . '</div>';
                 return Response($output);
 
             }
@@ -106,32 +106,18 @@ class searchController extends Controller
             }
         }
 
-
+        $output = '<div style="overflow-y:scroll">' . '<i id="crossbutton" onClick="closeall()" class="fas fa-times" >' . '</i>' . $output . '</div>';
         return $output;
     }
     public function levelsearch(Request $request){
      //  $roomid=$request->authid;
        $sender=auth()->user()->id;
-        // $chatroom = Chatroom::where('id', $roomid)->first();
-        // $chatroomusers=$chatroom->chatRoomId;
-        // $chatroomusers = explode(',', $chatroomusers);
-        // $receiver;
-        // if ($chatroomusers[0] == $sender) {
-        //     $receiver = $chatroomusers[1];
-        // } else {
-        //     $receiver = $chatroomusers[0];
-        // }
+       
         $allevels = Level::where('userleveler', '=', $sender)
             ->where('value', '!=', 'Spam')
             ->where('value', '!=', 'Report')
             ->where('value', '!=', 'Archive')->orderBy('value')->get();
-            $output='';
-
-        // foreach($allevels as $levels){
-        //     $output.='<tr>'.
-        //      '<td>'.'<h6>'.$levels->value. '</h6>'. '</td>'.
-        //     '</tr>';
-        // } 
+            $output=''; 
         for($i=0;$i<sizeof($allevels);$i++){
             if($i==0){
                 $output .= '<h5 class="level_font" onClick="indeviduallevelsearch(' . $allevels[$i]->id . ')">' . $allevels[$i]->value . '</h5>';
@@ -172,7 +158,7 @@ class searchController extends Controller
                             ;
                 }  
            }
-           $output='<div style="overflow-y:scroll">'.$output.'</div>';
+           $output='<div style="overflow-y:scroll">'. '<i id="crossbutton" onClick="closeall()" class="fas fa-times" >'.'</i>'.$output.'</div>';
      return Response($output);              
     }
     public function indeviduallevelsearch(Request $request){
@@ -187,21 +173,29 @@ class searchController extends Controller
        
         foreach($allevels as $allevel){
             $receiver=$allevel->userbeenleveled ;
+            $chatRoomId;
+            if ($sender > $receiver) {
+                $chatRoomId = $receiver . ',' . $sender;
+            } else {
+                $chatRoomId = $sender . ',' . $receiver;
+            }
+            $chatboxroute = route('privateChat', $chatRoomId);
             $message=Message::where('sender',$sender)
                             ->where('receiver',$allevel->userbeenleveled)->orderBy('created_at','DESC')->first();
             $receiver = User::find($receiver);
             $imgsrc=url('/uploads/avatars/'.$receiver->avatar);
             $leveldelsrc = route('leveldel', $allevel->id);
             if ($message != null) {
-                $output .= '<li style="list-style:none">' . '<a class="alink" href="#">' . '<img src="' . $imgsrc . '" class="receiver-profile-image float-left" >' . '<h4 class="alink float-left">' . $receiver->name . '</h4>' . '</a>' . '<a class="level_font alink float-right well-sm" href="' . $leveldelsrc . '">' . $value . '<i id="crossbutton" class="fas fa-times">' . '</i>' . '</a>' .
+                $output .= '<li style="list-style:none">' . '<a class="alink" href="'. $chatboxroute .'">' . '<img src="' . $imgsrc . '" class="receiver-profile-image float-left" >' . '<h4 class="alink float-left">' . $receiver->name . '</h4>' . '</a>' . '<a class="level_font alink float-right well-sm" href="' . $leveldelsrc . '">' . $value . '<i id="crossbutton" class="fas fa-times">' . '</i>' . '</a>' .
                     '<br>' . '<h5 class="message_font" style="text-align:left;overflow:hidden;">' . '<b>Last message : </b>' . $message->message . '</h5>' .
                     '</li>';
             } else {
-                $output .= '<li style="list-style:none">' . '<a class="alink" href="#">' . '<img src="' . $imgsrc . '" class="receiver-profile-image float-left" >' . '<h4 class="alink float-left">' . $receiver->name . '</h4>' . '</a>' . '<a class="level_font alink float-right well-sm"  href="' . $leveldelsrc . '">' . $value . '<i id="crossbutton" class="fas fa-times">' . '</i>' . '</a>' .
+                $output .= '<li style="list-style:none">' . '<a class="alink" href="'. $chatboxroute .'">' . '<img src="' . $imgsrc . '" class="receiver-profile-image float-left" >' . '<h4 class="alink float-left">' . $receiver->name . '</h4>' . '</a>' . '<a class="level_font alink float-right well-sm"  href="' . $leveldelsrc . '">' . $value . '<i id="crossbutton" class="fas fa-times">' . '</i>' . '</a>' .
                     '<h5>' . ' <b> Last message : </b> ' . '</h5>' .
                     '</li>';
             }
         }
+        $output = '<div style="overflow-y:scroll">' . '<i id="crossbutton" onClick="closeall()" class="fas fa-times" >' . '</i>' . $output . '</div>';
         return Response($output);               
     }
     public function test(){

@@ -11,9 +11,10 @@
 .mesuccess{
     background:#ffffff;
    
-    font-style: oblique;
+    font-style: normal;
     color:rgb(22, 27, 22);
-    text-align: left;
+   text-align:left;
+   border-top:#f0eeee75 1px solid;
     
     margin: 0px 0px 0px -6px
 
@@ -21,10 +22,10 @@
 .hesuccess{
     background:#ffffff;
    
-    font-style: oblique;
+    font-style: normal;
     color:rgb(31, 17, 17);
     text-align:left;
-    border-top:#fcfafa75 1px solid;
+    border-top:#f0eeee75 1px solid;
     margin: 0px 0px 0px -6px;
 }
 .wrapping{
@@ -53,7 +54,7 @@
      color:#999999;
 }
 .messagebody{
-        margin: 10px 10px -5px 70px;
+        margin: 9px 10px -5px 70px;
         max-width: 540px;
         font-size: .80rem !important;
         font-style:normal;
@@ -134,6 +135,7 @@
 .chatboxtopbar{
     border-bottom: #d4d1d1 solid 1px;
     margin: 3px 12px 4px -17px;
+    box-shadow: 0.03rem 0.03rem .01rem rgb(188, 192, 187);
 }
 .jumbotron{
     padding:50px;
@@ -154,7 +156,7 @@
 .message_font{
     font-size: .80rem;
     color:rgb(180, 180, 180);
-        font-style: normal;
+    font-style: normal;
 }
 .level_font{
     font-size: .85rem !important;
@@ -167,4 +169,21 @@ padding-top: 3px;
 font-size: .80rem;
 margin-left: 16px;
 float: right;
+ cursor: pointer;
+}
+.levelop{
+    font-size: .85rem !important;
+    padding:3px;
+    font-style: normal;
+    cursor: pointer;
+}
+.levelop:hover{
+    color: #0004da;
+    box-shadow: 2px 2px rgb(176, 182, 179);
+    margin:4px;
+}
+.topleftchatdiv{
+        padding: 11px 10px;
+        margin: 15px 0px 5px -5px;
+        cursor: pointer;
 }
