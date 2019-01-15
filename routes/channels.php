@@ -27,5 +27,5 @@ Broadcast::channel('chat-roomId-{chatRoomId}', function ($user, $chtroom) {
 });
 
 Broadcast::channel('online-{roomId}', function ($user, $roomId) {
-   return true;
+    return true;
 });

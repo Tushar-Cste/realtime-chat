@@ -17,9 +17,9 @@
 
                 </slot>
                  </p>
-            <p v-if="isActive == 'true'">
+            <!-- <p v-if="isActive == 'true'">
                 this message hase been spamed. Our security team would like to take it as a serious issue. Ohter person won't see this message..
-            </p>
+            </p> -->
             </li>
         
         </div>

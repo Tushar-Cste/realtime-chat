@@ -318,7 +318,8 @@
             $("#sss").click(function(){
                 $.ajax({
                     type: 'get',
-                    url : '{{URL::to('spamsearch')}}',
+                    data:{'value':'Spam'}, 
+                    url : '{{URL::to('defaullevelsearch')}}',
                    // data:{'authid':$userid},
                     success:function(data){
                         console.log(data);
@@ -330,7 +331,8 @@
             $("#report").click(function(){
                 $.ajax({
                     type: 'get',
-                    url : '{{URL::to('reportsearch')}}',
+                    data:{'value':'Report'},
+                    url : '{{URL::to('defaullevelsearch')}}',
                    // data:{'authid':$userid},
                     success:function(data){
                         console.log(data);

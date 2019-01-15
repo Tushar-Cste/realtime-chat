@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use DB;
 use Auth;
 use App\User;
@@ -68,63 +69,69 @@ class searchController extends Controller
         }
 
     }
-    public function spamsearch(Request $request){
-        $use=Auth::user()->id;
-        $message=Message::where('activationStatus',0)
-                         ->where('receiver',$use)
-                         ->orderBy('created_at', 'DESC')
+    public function defaullevelsearch(Request $request){
+      
+        $sender=auth()->user()->id;
+        $value=$request->value;
+      // return $value;
+        $output='';
+        $allevels = Level::where('userleveler', '=', $sender)
+                         ->where('value',$value)
                          ->get();
-        
-        if($request->close=='close')
-        {
-            $output="";
-            return Response($output);
-        }  
-        else{              
-        $output= '<h3 class="well-sm">The Spamed messages are </h3>'.'<h3 class="btn btn-danger" id="spamclose">Click Here to Close Spam section</h3>';
-       
-        foreach($message as $message){
-            $sender=$message->sender;
-            $sender=User::find($sender);
-            $sendersrc=url('/uploads/avatars/'.$sender->avatar);
-            $output .='<tr >'. 
-                        '<td>'.
-                        '<img src="'. $sendersrc .'"height="20px" width="20px" style="border-radius:50%;float:left">'.
+                         
+        foreach($allevels as $allevel){
+            $receiver = $allevel->userbeenleveled;
+            $receiver=User::find($receiver);
+            $message = Message::where('sender', $sender)
+                ->where('receiver', $allevel->userbeenleveled)->orderBy('created_at', 'DESC')->first(); 
+            $imgsrc = url('/uploads/avatars/' . $receiver->avatar);
+          
+            $leveldelsrc = route('leveldel', $allevel->id);
+          // return $message;
+            if ($message != null) {
+                $output .= '<li>' . '<a href="#">' . '<img src="' . $imgsrc . ' " height="50px" width="50px" >' . '<h4>' . $receiver->name . '</h4>' . '</a>' . '<a href="' . $leveldelsrc . '">' . $value . '<i class="fas fa-times">' . '</i>' . '</a>' .
+                    '<h5>Last message : ' . $message->message . '</h5>' .
+                    '</li>';
+            } else {
+                $output .= '<li>' . '<a href="#">' . '<img src="' . $imgsrc . ' " height="50px" width="50px" >' . '<h4>' . $receiver->name . '</h4>' . '</a>' . '<a href="' . $leveldelsrc . '">' . $value . '<i class="fas fa-times">' . '</i>' . '</a>' .
+                    '<h5>Last message :  </h5>' .
+                    '</li>';
+            }
+        }
 
 
-                             '<h4 style="display:inline;font-weight: 900;">'.$sender->name.
-                            '</h4>'.
-
-
-
-                '<h5 style="font-size: 14px;">'.$message->message.'</h5>'.'<h5 style="margin-left:10px;font-size:10px">'.$message->created_at.'</h5>'.
-                        '</td>'.
-                    '</tr>'                   
-                    ;
-        }                 
-       return Response($output);}
-
+        return $output;
     }
     public function levelsearch(Request $request){
-       $roomid=$request->authid;
+     //  $roomid=$request->authid;
        $sender=auth()->user()->id;
-        $chatroom = Chatroom::where('id', $roomid)->first();
-        $chatroomusers=$chatroom->chatRoomId;
-        $chatroomusers = explode(',', $chatroomusers);
-        $receiver;
-        if ($chatroomusers[0] == $sender) {
-            $receiver = $chatroomusers[1];
-        } else {
-            $receiver = $chatroomusers[0];
-        }
+        // $chatroom = Chatroom::where('id', $roomid)->first();
+        // $chatroomusers=$chatroom->chatRoomId;
+        // $chatroomusers = explode(',', $chatroomusers);
+        // $receiver;
+        // if ($chatroomusers[0] == $sender) {
+        //     $receiver = $chatroomusers[1];
+        // } else {
+        //     $receiver = $chatroomusers[0];
+        // }
         $allevels = Level::where('userleveler', '=', $sender)
-            ->where('userbeenleveled', '=', $receiver)->get();
+            ->where('value', '!=', 'Spam')
+            ->where('value', '!=', 'Report')
+            ->where('value', '!=', 'Archive')->orderBy('value')->get();
             $output='';
-        foreach($allevels as $levels){
-            $output.='<tr>'.
-             '<td>'.'<h6>'.$levels->value. '</h6>'. '</td>'.
-            '</tr>';
-        } 
+
+        // foreach($allevels as $levels){
+        //     $output.='<tr>'.
+        //      '<td>'.'<h6>'.$levels->value. '</h6>'. '</td>'.
+        //     '</tr>';
+        // } 
+        for($i=0;$i<sizeof($allevels);$i++){
+            if($i==0){
+                $output .= '<h5 onClick="indeviduallevelsearch(' . $allevels[$i]->id . ')">' . $allevels[$i]->value . '</h5>';
+            }elseif($allevels[$i]->value != $allevels[$i-1]->value){
+                $output.= '<h5 onClick="indeviduallevelsearch('.$allevels[$i]->id.')">'.$allevels[$i]->value.'</h5>';
+            }
+        }
         return Response($output);
 
     }
@@ -163,5 +170,64 @@ class searchController extends Controller
                     ;
         }  
          return Response($output);              
+    }
+    public function indeviduallevelsearch(Request $request){
+        $sender=auth()->user()->id;
+        $levelid=$request->levelid;
+        $level=Level::find($levelid);
+        $value=$level->value;
+        $allevels= Level::where('userleveler', '=', $sender)
+                       ->where('value', $value)
+                       ->get();
+        $output="";
+       
+        foreach($allevels as $allevel){
+            $receiver=$allevel->userbeenleveled ;
+            $message=Message::where('sender',$sender)
+                            ->where('receiver',$allevel->userbeenleveled)->orderBy('created_at','DESC')->first();
+            $receiver = User::find($receiver);
+            $imgsrc=url('/uploads/avatars/'.$receiver->avatar);
+            $leveldelsrc = route('leveldel', $allevel->id);
+            if ($message != null) {
+                $output .= '<li>' . '<a href="#">' . '<img src="' . $imgsrc . ' " height="50px" width="50px" >' . '<h4>' . $receiver->name . '</h4>' . '</a>' . '<a href="' . $leveldelsrc . '">' . $value . '<i class="fas fa-times">' . '</i>' . '</a>' .
+                    '<h5>Last message : ' . $message->message . '</h5>' .
+                    '</li>';
+            } else {
+                $output .= '<li>' . '<a href="#">' . '<img src="' . $imgsrc . ' " height="50px" width="50px" >' . '<h4>' . $receiver->name . '</h4>' . '</a>' . '<a href="' . $leveldelsrc . '">' . $value . '<i class="fas fa-times">' . '</i>' . '</a>' .
+                    '<h5>Last message :  </h5>' .
+                    '</li>';
+            }
+        }
+        return Response($output);               
+    }
+    public function test(){
+        $sender = auth()->user()->id;
+        $levelid = 7;
+        $level = Level::find($levelid);
+        $value = $level->value;
+        $allevels = Level::where('userleveler', '=', $sender)
+            ->where('value', $value)
+            ->get();
+        $output = "";
+
+        foreach ($allevels as $allevel) {
+            $receiver = $allevel->userbeenleveled;
+            $message = Message::where('sender', $sender)
+                ->where('receiver', $allevel->userbeenleveled)->orderBy('created_at', 'DESC')->first(); 
+            $receiver = User::find($receiver);
+            $imgsrc = url('/uploads/avatars/' . $receiver->avatar);
+            $leveldelsrc = route('leveldel', $allevel->id);
+            if($message != null){
+                $output .= '<li>' . '<a href="#">' . '<img src="' . $imgsrc . ' " height="50px" width="50px" >' . '<h4>' . $receiver->name . '</h4>' . '</a>' . '<a href="' . $leveldelsrc . '">' . $value . '<i class="fas fa-times">' . '</i>' . '</a>' .
+                    '<h5>Last message : ' . $message->message . '</h5>' .
+                    '</li>';
+            }else{
+                $output .= '<li>' . '<a href="#">' . '<img src="' . $imgsrc . ' " height="50px" width="50px" >' . '<h4>' . $receiver->name . '</h4>' . '</a>' . '<a href="' . $leveldelsrc . '">' . $value . '<i class="fas fa-times">' . '</i>' . '</a>' .
+                    '<h5>Last message :  </h5>' .
+                    '</li>';
+            }
+           
+        }
+        return Response($output);   
     }
 }

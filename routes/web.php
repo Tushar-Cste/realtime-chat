@@ -146,9 +146,10 @@ Route::post('/getOldMessage', 'ChatController@getOldMessage');
 Route::post('/chatSpam/{id}', 'ChatController@spam');
 Route::post('/chatReport/{id}', 'ChatController@report');
 Route::get('/search', 'searchController@search');
-Route::get('/spamsearch', 'searchController@spamsearch')->name('spamsearch');
+Route::get('/defaullevelsearch', 'searchController@defaullevelsearch')->name('defaullevelsearch');
 Route::get('/levelsearch', 'searchController@levelsearch')->name('levelsearch');
 Route::get('/unreadsearch', 'searchController@unreadsearch')->name('unreadsearch');
+Route::get('/indeviduallevelsearch', 'searchController@indeviduallevelsearch')->name('indeviduallevelsearch');
 
 Route::post('/setonline', 'ChatController@setonline');
 Route::post('/setoffline', 'ChatController@setoffline');
@@ -161,3 +162,4 @@ Route::post('/addcustomlevel', 'LevelController@custom');
 Route::get('/leveldel/{id}','LevelController@delete')->name('leveldel');
 
 Route::get('/gmtime', 'PrivateChatController@test');
+Route::get('/testtt','searchController@test');

@@ -69,17 +69,20 @@ class LevelController extends Controller
             $newlevel->userleveler = $sender;
             $newlevel->userbeenleveled = $receiver;
             $newlevel->value = $request->level;
-            $newlevel->save(); 
+            $newlevel->save();
+            $allevels = Level::where('userleveler', '=', $sender)
+                ->where('userbeenleveled', '=', $receiver)->get();
+
+            $output = '';
+            foreach ($allevels as $allevel) {
+                $output .= '<h6>' . $allevel->value . '<a href="#">' . '<i class="fas fa-times">' . '</i>' . '</a>' . '</h6>';
+            }
+            return Response($output);  
+       }else{
+           return 'reload';
        }
 
-        $allevels = Level::where('userleveler', '=', $sender)
-            ->where('userbeenleveled', '=', $receiver)->get();
-
-        $output = '';
-        foreach ($allevels as $allevel) {
-            $output .= '<h6>' . $allevel->value . '<a href="#">' . '<i class="fas fa-times">'.'</i>'.'</a>' . '</h6>';
-        }
-        return Response($output);   
+        
            
                
             

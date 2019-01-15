@@ -48141,7 +48141,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v(_vm._s(_vm.time))]), _vm._v(" "), _c('p', {
     staticClass: "messagebody"
-  }, [_vm._t("default")], 2), _vm._v(" "), (_vm.isActive == 'true') ? _c('p', [_vm._v("\r\n                this message hase been spamed. Our security team would like to take it as a serious issue. Ohter person won't see this message..\r\n            ")]) : _vm._e()])])]) : _vm._e()])
+  }, [_vm._t("default")], 2)])])]) : _vm._e()])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
