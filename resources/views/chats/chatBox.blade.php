@@ -24,7 +24,7 @@ var requestmaker ="{{ $requestmaker }}";
            
         <div class="chatboxtopbar"> 
            
-                <tr style="overflow:hidden">  <img class="receiver-profile-image float-left" style="padding:3px;" src="{{asset('/uploads/avatars/'.$receiver_user->avatar)}}" height="60px" width="60px" alt="default.png"  > </tr> 
+                <tr style="overflow:hidden">  <img class="receiver-profile-image float-left" style="" src="{{asset('/uploads/avatars/'.$receiver_user->avatar)}}" height="60px" width="60px" alt="default.png"  > </tr> 
            
             <div class="">
                <table style="" class="col-md-7">

@@ -53,7 +53,7 @@ class searchController extends Controller
                     $src=url('/uploads/avatars/'.$user->avatar);
                     $output .= '<tr>' .
 
-                        '<td>'.'<a class="alink " href="'.$chatRoomId.' ">' .'<img src="'.$src. '"height="30px" width="30px" style="border-radius:50%;float:left">'. '<h1 style="display:inline;font-weight: 900;">'. $user->name.'</h1>' .'</a>'. '</td>' .
+                        '<td>'.'<a class="alink " href="'.$chatRoomId.' ">' . '<img  src="'.$src. '" height="30px" width="30px" style="border-radius:50%;float:left">'. '<h1 class="chtbxusername" style="display:inline;font-size:.80rem;">'. $user->name.'</h1>' .'</a>'. '</td>' .
 
 
                         '</tr>';
@@ -81,20 +81,27 @@ class searchController extends Controller
                          
         foreach($allevels as $allevel){
             $receiver = $allevel->userbeenleveled;
+            $chatRoomId;
+            if($sender>$receiver){
+                $chatRoomId=$receiver.','.$sender;
+            }else{
+                $chatRoomId=$sender.','.$receiver;
+            }
+            $chatboxroute=route('privateChat',$chatRoomId);
             $receiver=User::find($receiver);
             $message = Message::where('sender', $sender)
-                ->where('receiver', $allevel->userbeenleveled)->orderBy('created_at', 'DESC')->first(); 
+                               ->where('receiver', $allevel->userbeenleveled)->orderBy('created_at', 'DESC')->first(); 
             $imgsrc = url('/uploads/avatars/' . $receiver->avatar);
           
             $leveldelsrc = route('leveldel', $allevel->id);
-          // return $message;
+          
             if ($message != null) {
-                $output .= '<li>' . '<a href="#">' . '<img src="' . $imgsrc . ' " height="50px" width="50px" >' . '<h4>' . $receiver->name . '</h4>' . '</a>' . '<a href="' . $leveldelsrc . '">' . $value . '<i class="fas fa-times">' . '</i>' . '</a>' .
-                    '<h5>Last message : ' . $message->message . '</h5>' .
+                $output .= '<li style="list-style:none">' . '<a href="'. $chatboxroute.' ">' . '<img src="'. $imgsrc .' " class="receiver-profile-image float-left" >' . '<h4 class="alink float-left">' . $receiver->name . '</h4>' . '</a>' . '<a class="level_font alink float-right well-sm" href="' . $leveldelsrc . '">' . $value . '<i id="crossbutton" class="fas fa-times">' . '</i>' . '</a>' .
+                  '<br>'. '<h5 class="message_font" style="text-align:left;overflow:hidden;">'.'<b>Last message : </b>' . $message->message . '</h5>' .
                     '</li>';
             } else {
-                $output .= '<li>' . '<a href="#">' . '<img src="' . $imgsrc . ' " height="50px" width="50px" >' . '<h4>' . $receiver->name . '</h4>' . '</a>' . '<a href="' . $leveldelsrc . '">' . $value . '<i class="fas fa-times">' . '</i>' . '</a>' .
-                    '<h5>Last message :  </h5>' .
+                $output .= '<li style="list-style:none">' . '<a href="'. $chatboxroute .' ">' . '<img src="' . $imgsrc . ' "  class="receiver-profile-image float-left" >' . '<h4 class="alink float-left">' . $receiver->name . '</h4>' . '</a>' . '<a class="level_font alink float-right well-sm" href="' . $leveldelsrc . '">' . $value . '<i id="crossbutton" class="fas fa-times">' . '</i>' . '</a>' .
+                    '<h5>'.' <b> Last message : </b> '.'</h5>' .
                     '</li>';
             }
         }
@@ -127,9 +134,9 @@ class searchController extends Controller
         // } 
         for($i=0;$i<sizeof($allevels);$i++){
             if($i==0){
-                $output .= '<h5 onClick="indeviduallevelsearch(' . $allevels[$i]->id . ')">' . $allevels[$i]->value . '</h5>';
+                $output .= '<h5 class="level_font" onClick="indeviduallevelsearch(' . $allevels[$i]->id . ')">' . $allevels[$i]->value . '</h5>';
             }elseif($allevels[$i]->value != $allevels[$i-1]->value){
-                $output.= '<h5 onClick="indeviduallevelsearch('.$allevels[$i]->id.')">'.$allevels[$i]->value.'</h5>';
+                $output.= '<h5 class="level_font" onClick="indeviduallevelsearch('.$allevels[$i]->id.')">'.$allevels[$i]->value.'</h5>';
             }
         }
         return Response($output);
@@ -147,29 +154,26 @@ class searchController extends Controller
                         ->where('activationStatus','!=',0)->orderBy('created_at','DSEC')->count();
        // 
         if($messagecnt == 0){
-            $output.='<tr>'.'<td>'.'<h3 class="well-sm">No unread message</h3>'.'</td>'.'</tr>';
-            return Response($output);
-        }               
-        foreach($message as $message){
-            $sender=$message->sender;
-            $sender=User::find($sender);
-            $sendersrc=url('/uploads/avatars/'.$sender->avatar);
-            $output .='<tr >'. 
-                        '<td>'.
-                        '<img src="'. $sendersrc .'"height="20px" width="20px" style="border-radius:50%;float:left">'.
-
-
-                             '<h4 style="display:inline;font-weight: 900;">'.$sender->name.
-                            '</h4>'.
-
-
-
-                '<h5 style="font-size: 14px;">'.$message->message.'</h5>'.'<h5 style="margin-left:10px;font-size:10px">'.$message->created_at.'</h5>'.
-                        '</td>'.
-                    '</tr>'                   
-                    ;
-        }  
-         return Response($output);              
+            $output.='<tr>'.'<td>'. '<h3 class="well-sm message_font">No unread message</h3>'.'</td>'.'</tr>';
+           
+        }else{              
+                foreach($message as $message){
+                    $sender=$message->sender;
+                    $sender=User::find($sender);
+                    $sendersrc=url('/uploads/avatars/'.$sender->avatar);
+                    $output .='<tr >'. 
+                                '<td>'.
+                                    '<img src="'. $sendersrc .'" height="20px" width="20px" style="border-radius:50%;float:left">'.
+                                    '<h4 style="display:inline;font-size:.90rem;">'.$sender->name. '</h4>' .
+                                    
+                                    '<h5 class="message_font">'.$message->message.'</h5>'.'<h5 class="time">'.$message->created_at.'</h5>'.
+                                '</td>'.
+                            '</tr>'                   
+                            ;
+                }  
+           }
+           $output='<div style="overflow-y:scroll">'.$output.'</div>';
+     return Response($output);              
     }
     public function indeviduallevelsearch(Request $request){
         $sender=auth()->user()->id;
@@ -189,12 +193,12 @@ class searchController extends Controller
             $imgsrc=url('/uploads/avatars/'.$receiver->avatar);
             $leveldelsrc = route('leveldel', $allevel->id);
             if ($message != null) {
-                $output .= '<li>' . '<a href="#">' . '<img src="' . $imgsrc . ' " height="50px" width="50px" >' . '<h4>' . $receiver->name . '</h4>' . '</a>' . '<a href="' . $leveldelsrc . '">' . $value . '<i class="fas fa-times">' . '</i>' . '</a>' .
-                    '<h5>Last message : ' . $message->message . '</h5>' .
+                $output .= '<li style="list-style:none">' . '<a class="alink" href="#">' . '<img src="' . $imgsrc . '" class="receiver-profile-image float-left" >' . '<h4 class="alink float-left">' . $receiver->name . '</h4>' . '</a>' . '<a class="level_font alink float-right well-sm" href="' . $leveldelsrc . '">' . $value . '<i id="crossbutton" class="fas fa-times">' . '</i>' . '</a>' .
+                    '<br>' . '<h5 class="message_font" style="text-align:left;overflow:hidden;">' . '<b>Last message : </b>' . $message->message . '</h5>' .
                     '</li>';
             } else {
-                $output .= '<li>' . '<a href="#">' . '<img src="' . $imgsrc . ' " height="50px" width="50px" >' . '<h4>' . $receiver->name . '</h4>' . '</a>' . '<a href="' . $leveldelsrc . '">' . $value . '<i class="fas fa-times">' . '</i>' . '</a>' .
-                    '<h5>Last message :  </h5>' .
+                $output .= '<li style="list-style:none">' . '<a class="alink" href="#">' . '<img src="' . $imgsrc . '" class="receiver-profile-image float-left" >' . '<h4 class="alink float-left">' . $receiver->name . '</h4>' . '</a>' . '<a class="level_font alink float-right well-sm"  href="' . $leveldelsrc . '">' . $value . '<i id="crossbutton" class="fas fa-times">' . '</i>' . '</a>' .
+                    '<h5>' . ' <b> Last message : </b> ' . '</h5>' .
                     '</li>';
             }
         }
@@ -218,12 +222,12 @@ class searchController extends Controller
             $imgsrc = url('/uploads/avatars/' . $receiver->avatar);
             $leveldelsrc = route('leveldel', $allevel->id);
             if($message != null){
-                $output .= '<li>' . '<a href="#">' . '<img src="' . $imgsrc . ' " height="50px" width="50px" >' . '<h4>' . $receiver->name . '</h4>' . '</a>' . '<a href="' . $leveldelsrc . '">' . $value . '<i class="fas fa-times">' . '</i>' . '</a>' .
-                    '<h5>Last message : ' . $message->message . '</h5>' .
+                $output .= '<li style="list-style:none">' . '<a class="alink" href="#">' . '<img src="' . $imgsrc .'" class="receiver-profile-image float-left" >' . '<h4 class="alink float-left">' . $receiver->name . '</h4>' . '</a>' . '<a class="level_font alink float-right well-sm" href="' . $leveldelsrc . '">' . $value . '<i id="crossbutton" class="fas fa-times">' . '</i>' . '</a>' .
+                    '<br>' . '<h5 class="message_font" style="text-align:left;overflow:hidden;">' . '<b>Last message : </b>' . $message->message . '</h5>' .
                     '</li>';
             }else{
-                $output .= '<li>' . '<a href="#">' . '<img src="' . $imgsrc . ' " height="50px" width="50px" >' . '<h4>' . $receiver->name . '</h4>' . '</a>' . '<a href="' . $leveldelsrc . '">' . $value . '<i class="fas fa-times">' . '</i>' . '</a>' .
-                    '<h5>Last message :  </h5>' .
+                $output .= '<li style="list-style:none">' . '<a class="alink" href="#">' . '<img src="' . $imgsrc . '" class="receiver-profile-image float-left" >' . '<h4 class="alink float-left">' . $receiver->name . '</h4>' . '</a>' . '<a class="level_font alink float-right well-sm"  href="' . $leveldelsrc . '">' . $value . '<i id="crossbutton" class="fas fa-times">' . '</i>' . '</a>' .
+                    '<h5>' . ' <b> Last message : </b> ' . '</h5>' .
                     '</li>';
             }
            

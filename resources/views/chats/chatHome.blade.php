@@ -209,7 +209,7 @@
                      
                     @if( $messageunread)
                         <li class="chatliststyle"  style="overflow: auto;background:lightgray;">
-                            <img class="receiver-profile-image float-left" style="padding:3px;display:inline" src="{{asset('/uploads/avatars/'.$receiver->avatar)}}" height="50px" width="50px"  alt="{{asset('uploads/avatars/defaultpic.jpg')}}"  >
+                            <img class="receiver-profile-image float-left" style="display:inline" src="{{asset('/uploads/avatars/'.$receiver->avatar)}}" height="50px" width="50px"  alt="{{asset('uploads/avatars/defaultpic.jpg')}}"  >
                             <a class="alink" href="{{url('privateChat/'.$chatRoomId)}}">
                                 <div class="chatlistname" style="float:left">
                                      <h3  style="display:inline" >  {{$receiver->name}}  </h3> 
@@ -224,7 +224,7 @@
                         </li>
                        @elseif($message)
                         <li class="chatliststyle" style="overflow: auto;">
-                                <img class="receiver-profile-image float-left" style="padding:3px;display:inline" src="{{asset('/uploads/avatars/'.$receiver->avatar)}}" height="50px" width="50px" alt="{{asset('uploads/avatars/defaultpic.jpg')}}"  >
+                                <img class="receiver-profile-image float-left" style="display:inline" src="{{asset('/uploads/avatars/'.$receiver->avatar)}}" height="50px" width="50px" alt="{{asset('uploads/avatars/defaultpic.jpg')}}"  >
                                 
                                 <a  href="{{url('privateChat/'.$chatRoomId)}}">
                                     <div class="chatlistname" style="float:left">
@@ -232,7 +232,7 @@
                                     
                                         <i class="far fa-star time"> {{$timestring}}</i>
                                     </div><br>
-                                     <h5 class="message_font col-md-10 " style= "display:inline" >{{ $message->message}}</h5>
+                                     <h5 class="message_font col-md-10 " style= "display:inline;text-align: left;overflow:auto;" >{{ $message->message}}</h5>
                                </a>
                         </li>
                                             
