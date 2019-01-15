@@ -118,6 +118,7 @@
                 @php
                     $userid = Auth::user()->id;
                     $receiverid = $receiver->id;
+                   
                     if($userid==$receiverid){
                         continue;
                     }
@@ -129,11 +130,7 @@
                     $chatRoomId = $receiver->id.','.$userid;
                     }
                     $romid=App\Chatroom::where('chatRoomId',$chatRoomId)->first();
-                    // echo $chatRoomId;
-                    // continue;
-                    // echo $receiver->id;
-                    // continue;
-
+                 //   echo $receiver; continue;
                     $romid=$romid->id;
                 @endphp
               
