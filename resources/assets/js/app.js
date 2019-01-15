@@ -262,7 +262,12 @@ const app = new Vue({
     },
 
     watch: {
-
+    message() {
+        Echo.private('chat-roomId-' + fetchroomId)
+            .whisper('typing', {
+                name: this.message
+            });
+    },
 
     },
     mounted() {
@@ -286,6 +291,12 @@ const app = new Vue({
                 this.chat.mgssender.push('false');
                 this.chat.images.push(e.image);
 
+            })
+            .listenForWhisper('typing', (e) => {
+                if (e.user != '')
+                    this.typing = "  typing.....";
+                else
+                    this.typing = "";
             });
 
 

@@ -25219,7 +25219,13 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     created: function created() {},
 
 
-    watch: {},
+    watch: {
+        message: function message() {
+            Echo.private('chat-roomId-' + fetchroomId).whisper('typing', {
+                name: this.message
+            });
+        }
+    },
     mounted: function mounted() {
         var _this6 = this;
 
@@ -25241,6 +25247,8 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
             _this6.chat.spamedmessageid.push('false');
             _this6.chat.mgssender.push('false');
             _this6.chat.images.push(e.image);
+        }).listenForWhisper('typing', function (e) {
+            if (e.user != '') _this6.typing = "  typing.....";else _this6.typing = "";
         });
     }
 });
