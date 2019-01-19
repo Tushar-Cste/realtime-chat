@@ -24,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\OnlineEvent' => [
             'App\Listeners\OnlineEventListener',
         ],
+        'App\Events\Messagesent'=>[
+            'App\Listeners\MessagesentListener',
+        ],
     ];
 
     /**

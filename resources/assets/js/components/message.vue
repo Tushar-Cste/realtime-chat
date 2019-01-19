@@ -120,7 +120,7 @@
        
         mounted() {
             
-            console.log(this.spamedmessageid);
+           // console.log(this.spamedmessageid);
             
         }
     }

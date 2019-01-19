@@ -237,12 +237,18 @@ var requestmaker ="{{ $requestmaker }}";
 
 <script>
  $('.leveldel').click(function(){
-      console.log('aitoko ss');
+     
          var op= $('#leveldel').val();
         
          console.log(op);
         
       });
+</script>
+<script>
+     Window.Echo.private('messagesent-'+ requestmaker)
+     .listen('Messagesent',e=>{
+        console.log(e);
+     });
 </script>
 
 @endsection

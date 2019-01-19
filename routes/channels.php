@@ -29,3 +29,9 @@ Broadcast::channel('chat-roomId-{chatRoomId}', function ($user, $chtroom) {
 Broadcast::channel('online-{roomId}', function ($user, $roomId) {
     return true;
 });
+Broadcast::channel('messagesent-{receiver}',function($user,$receiver){
+
+    if (auth()->user()->id != $receiver){
+        return true;
+    }
+});

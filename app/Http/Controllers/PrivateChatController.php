@@ -9,7 +9,7 @@ use Session;
 use App\User;
 use App\Message;
 use App\Events\ChatEvent;
-use App\Events\OnlineEvent;
+use App\Events\Messagesent;
 
 class PrivateChatController extends Controller
 {
@@ -83,7 +83,7 @@ class PrivateChatController extends Controller
         $message->save();
         $wasactive='true';
         event(new ChatEvent($message , $chatroom->id, $image,$user));
-        
+        event(new Messagesent($receiver, $senderId, $message->id));
         return [
             'id' => $message->id,
              'image'=>$image,

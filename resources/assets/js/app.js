@@ -94,7 +94,7 @@ const app = new Vue({
     methods: {
         send(id) {
              this.k = this.dateformate();
-             console.log(this.k);
+            // console.log(this.k);
             if (this.message.length != 0) {
                 this.chat.messages.push(this.message);
                 this.chat.spamedmessageid.push('false');
@@ -107,7 +107,7 @@ const app = new Vue({
                 this.chat.report.push('none');
                 this.time = this.getTime();
                 this.utc = this.getTimezone();
-                //console.log(this.time);
+               // console.log(this.time);
 
                 axios.post('/send/' + id, {
 
@@ -121,6 +121,7 @@ const app = new Vue({
 
                         this.chat.messageid.push(response.data.id);
                         this.chat.images.push(response.data.image);
+                      //  console.log(this.chat.messageid);
 
                     })
                     .catch(error => {
@@ -243,7 +244,7 @@ const app = new Vue({
         setLogedInUserTime() {
             var dd = new Date();
             var nn = dd.getTimezoneOffset();
-            console.log(nn);
+         //   console.log(nn);
             axios.post('/setuserlocalutc', {
                     utcdiff: nn,
                 })
@@ -291,10 +292,14 @@ const app = new Vue({
                 this.chat.mgssender.push('false');
                 this.chat.images.push(e.image);
 
+               // console.log('done');
             })
             .listenForWhisper('typing', (e) => {
-                if (e.user != '')
+                if (e.name != ''){
+                  //  console.log(e.name);
                     this.typing = "  typing.....";
+                }
+                  
                 else
                     this.typing = "";
             });

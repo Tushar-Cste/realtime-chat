@@ -86,7 +86,7 @@ class LevelController extends Controller
             $leveldelsrc=route('leveldel',$allevel->id);
             $output .= '<h6 class="well-sm level_font" style="display:inline;">' . $allevel->value . '<a class="alink" href="'.$leveldelsrc.'">' . '<i id="crossbutton" class="fas fa-times"></i>' . '</a>' . '</h6>';
         }
-        $output='Level: '.$output;
+        $output = 'Level: ' . $output;
         return Response($output);            
    }
    public function custom(Request $request){

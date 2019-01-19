@@ -25075,7 +25075,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
             var _this = this;
 
             this.k = this.dateformate();
-            console.log(this.k);
+            // console.log(this.k);
             if (this.message.length != 0) {
                 this.chat.messages.push(this.message);
                 this.chat.spamedmessageid.push('false');
@@ -25088,7 +25088,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
                 this.chat.report.push('none');
                 this.time = this.getTime();
                 this.utc = this.getTimezone();
-                //console.log(this.time);
+                // console.log(this.time);
 
                 axios.post('/send/' + id, {
 
@@ -25101,6 +25101,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
 
                     _this.chat.messageid.push(response.data.id);
                     _this.chat.images.push(response.data.image);
+                    //  console.log(this.chat.messageid);
                 }).catch(function (error) {
                     console.log(error);
                 });
@@ -25206,7 +25207,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
         setLogedInUserTime: function setLogedInUserTime() {
             var dd = new Date();
             var nn = dd.getTimezoneOffset();
-            console.log(nn);
+            //   console.log(nn);
             axios.post('/setuserlocalutc', {
                 utcdiff: nn
             }).then(function (response) {
@@ -25247,8 +25248,13 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
             _this6.chat.spamedmessageid.push('false');
             _this6.chat.mgssender.push('false');
             _this6.chat.images.push(e.image);
+
+            // console.log('done');
         }).listenForWhisper('typing', function (e) {
-            if (e.user != '') _this6.typing = "  typing.....";else _this6.typing = "";
+            if (e.name != '') {
+                //  console.log(e.name);
+                _this6.typing = "  typing.....";
+            } else _this6.typing = "";
         });
     }
 });
@@ -26208,7 +26214,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   mounted: function mounted() {
 
-    console.log(this.spamedmessageid);
+    // console.log(this.spamedmessageid);
+
   }
 });
 
